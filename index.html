@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Power Frut</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: #ffffff;
+      scroll-behavior: smooth; /* Para rolagem suave ao clicar nos links do menu */
+    }
+
+    .capa {
+      background-image: url('capa.jpeg');
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .capa h1 {
+      font-size: 4rem;
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 20px;
+      border-radius: 10px;
+      color: #ff6600;
+    }
+
+    header {
+      background-color: #ff6600;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo-nome {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-nome img {
+      height: 80px;
+    }
+
+    .logo-nome h2 {
+      margin: 0;
+      font-size: 2rem;
+      font-weight: bold;
+      color: #111;
+    }
+
+    nav {
+      display: flex;
+      gap: 15px; /* Reduzido o gap para caber mais itens */
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #111;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1rem;
+      padding: 5px 10px;
+      border-radius: 5px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    nav a:hover, nav a.active { /* Estilo para link ativo */
+        background-color: #111;
+        color: #ff6600;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 20px;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .produto {
+      background-color: #1a1a1a;
+      border-radius: 10px;
+      width: 300px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 0 10px #ff6600aa;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .produto:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #ff6600;
+    }
+
+    .produto img {
+      width: 100%;
+      max-height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .produto h3,
+    .produto p,
+    .produto .modo-preparo {
+      margin: 10px 0;
+    }
+
+    .modo-preparo {
+      background-color: #222;
+      padding: 10px;
+      text-align: left;
+      border-radius: 5px;
+      font-size: 0.9em;
+    }
+
+    .laranja h3, .laranja p, .laranja .modo-preparo { color: orange; }
+    .morango h3, .morango p, .morango .modo-preparo { color: #ff4d79; }
+    .uva h3, .uva p, .uva .modo-preparo { color: #9933cc; }
+    .limão h3, .limão p, .limão .modo-preparo { color: #99ff99; }
+    .manga h3, .manga p, .manga .modo-preparo { color: #ffcc00; }
+    .abacaxi h3, .abacaxi p, .abacaxi .modo-preparo { color: #f1f562; }
+    .maracuja h3, .maracuja p, .maracuja .modo-preparo { color: #ffd700; }
+    .framboesa h3, .framboesa p, .framboesa .modo-preparo { color: #ff3377; }
+
+    /* Estilos para a seção Sobre Nós */
+    #sobre-nos {
+      padding: 60px 20px;
+      background-color: #181818;
+      color: #fff;
+      text-align: center;
+    }
+
+    #sobre-nos h2 {
+      color: #ff6600;
+      margin-bottom: 30px;
+      font-size: 2.5rem;
+    }
+
+    #sobre-nos .equipe-img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: 25px;
+      border: 4px solid #ff6600;
+      box-shadow: 0 0 15px #ff6600aa;
+    }
+
+    #sobre-nos p.descricao-historia {
+      max-width: 800px;
+      margin: 0 auto 30px;
+      line-height: 1.7;
+      font-size: 1.1em;
+      color: #ccc;
+    }
+
+    #sobre-nos .valores-container {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    #sobre-nos .valor-item {
+      flex-basis: 220px;
+      background-color: #222;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      transition: transform 0.3s;
+    }
+    #sobre-nos .valor-item:hover {
+        transform: translateY(-10px);
+    }
+
+    #sobre-nos .valor-item img {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 15px;
+    }
+
+    #sobre-nos .valor-item h4 {
+      color: #ff6600;
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 1.2em;
+    }
+
+    #sobre-nos .valor-item p {
+      font-size: 0.95em;
+      color: #bbb;
+      line-height: 1.5;
+    }
+    
+    /* Estilos para o Jogo da Memória */
+    #jogo-da-memoria {
+        padding: 40px 20px;
+        background-color: #111;
+        text-align: center;
+    }
+    #jogo-da-memoria h2 {
+        text-align: center;
+        color: #ff6600;
+        font-size: 2.5rem;
+        margin-bottom: 40px;
+    }
+    #game-board {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr); 
+        gap: 15px; 
+        justify-content: center;
+        max-width: 600px; /* Reduzido para cartas menores */
+        margin: 30px auto 0;
+    }
+    .card-game {
+        width: 100%; 
+        aspect-ratio: 1 / 1; 
+        background-color: #333;
+        border-radius: 10px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.3s, box-shadow 0.3s;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .card-game:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 12px rgba(255,102,0,0.5);
+    }
+    .card-game img {
+        width: 90%; 
+        height: 90%;
+        object-fit: cover;
+        border-radius: 8px; 
+        display: none; 
+    }
+    .card-game.flipped img {
+        display: block; 
+    }
+    .card-game.matched {
+        cursor: default;
+        opacity: 0.7; 
+        background-color: #2a2a2a;
+    }
+    .victory-message { 
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.95);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        text-align: center;
+        padding: 20px;
+    }
+    .victory-message h1 {
+        color: #ff6600;
+        font-size: clamp(2rem, 5vw, 3.5rem); 
+        margin-bottom: 20px;
+        animation: fadeInScale 0.5s ease-out;
+    }
+    .victory-message img.logo-victory {
+        width: clamp(150px, 30vw, 200px); 
+        margin-bottom: 30px;
+        animation: fadeInScale 0.5s ease-out 0.2s; 
+        animation-fill-mode: backwards; 
+    }
+     .victory-message button {
+        background-color: #ff6600;
+        color: #111;
+        border: none;
+        padding: 15px 30px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s;
+        animation: fadeInScale 0.5s ease-out 0.4s;
+        animation-fill-mode: backwards;
+    }
+    .victory-message button:hover {
+        background-color: #e65c00;
+        transform: scale(1.05);
+    }
+
+    @keyframes fadeInScale {
+        from {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    /* Estilos para a Seção Blog */
+    #blog {
+        padding: 60px 20px;
+        background-color: #1c1c1c; /* Cor de fundo ligeiramente diferente */
+        text-align: center;
+    }
+    #blog h2 {
+        color: #ff6600;
+        font-size: 2.5rem;
+        margin-bottom: 40px;
+    }
+    .blog-posts-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+    }
+    .blog-post-item {
+        background-color: #222;
+        border-radius: 10px;
+        width: 320px; /* Largura dos posts */
+        padding: 20px;
+        text-align: left;
+        box-shadow: 0 0 10px rgba(0,0,0,0.4);
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .blog-post-item:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(255,102,0,0.3);
+    }
+    .blog-post-item img {
+        width: 100%;
+        height: 180px; /* Altura fixa para imagem do post */
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 15px;
+    }
+    .blog-post-item h3 {
+        color: #ff6600;
+        font-size: 1.5rem;
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+    .blog-post-item .post-meta { /* Para data ou categoria */
+        font-size: 0.85em;
+        color: #aaa;
+        margin-bottom: 10px;
+    }
+    .blog-post-item p.post-excerpt {
+        font-size: 1em;
+        color: #ccc;
+        line-height: 1.6;
+        margin-bottom: 15px;
+        /* Limitar o número de linhas do excerto (opcional, requer mais CSS ou JS) */
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;  
+        overflow: hidden;
+        text-overflow: ellipsis;
+        min-height: calc(1em * 1.6 * 3); /* Altura mínima para 3 linhas */
+    }
+    .blog-post-item .read-more-btn {
+        display: inline-block;
+        background-color: #ff6600;
+        color: #111;
+        padding: 8px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.3s;
+    }
+    .blog-post-item .read-more-btn:hover {
+        background-color: #e65c00;
+    }
+
+
+    footer {
+      background-color: #1a1a1a;
+      color: #eee;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    footer h2 {
+        color: #ff6600;
+        margin-bottom: 15px;
+    }
+    footer p {
+        max-width: 600px;
+        margin: 10px auto;
+        line-height: 1.6;
+        color: #ccc;
+    }
+    footer img.qr-code { 
+      width: 180px; 
+      margin-top: 20px;
+      border: 3px solid #ff6600;
+      border-radius: 8px;
+      padding: 5px; 
+      background-color: #fff; 
+    }
+    footer .copyright {
+        margin-top: 30px;
+        font-size: 0.9em;
+        color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <div class="capa">
+    <h1>Power Frut</h1>
+  </div>
+
+  <header>
+    <div class="logo-nome">
+      <img src="logo.jpg" alt="Logo Power Frut"  />
+      <h2><strong>POWER FRUT</strong></h2>
+    </div>
+    <nav>
+      <a href="#capa-link">Início</a> <!-- Adicionado ID para link -->
+      <a href="#sabores">Sabores</a>
+      <a href="#sobre-nos">Sobre Nós</a>
+      <a href="#blog">Blog</a> <!-- Link para o Blog adicionado -->
+      <a href="#jogo-da-memoria">Diversão</a>
+      <a href="#contato">Contato</a>
+    </nav>
+  </header>
+  <div id="capa-link"></div> <!-- Elemento âncora para o link "Início" -->
+
+
+  <div class="container" id="sabores">
+    <!-- Sabores -->
+    <div class="produto laranja">
+      <img src="laranja.jpeg" alt="Suco de Laranja" />
+      <h3>Laranja</h3>
+      <p>Refrescante e cheio de vitamina C. Ideal para começar o dia com energia.</p>
+      <div class="modo-preparo"><strong>Modo de Preparo:</strong> Dissolva 25g em 1 litro de água gelada.</div>
+    </div>
+
+    <div class="produto morango">
+      <img src="morango.jpeg" alt="Suco de Morango" />
+      <h3>Morango</h3>
+      <p>Doce e saboroso. A escolha perfeita para momentos de lazer.</p>
+      <div class="modo-preparo"><strong>Modo de Preparo:</strong> Misture 25g em 1 litro de água fria e bata no liquidificador.</div>
+    </div>
+
+    <div class="produto abacaxi">
+      <img src="abacaxi.jpeg" alt="Suco de Abacaxi" />
+      <h3>Abacaxi</h3>
+      <p>Refrescância natural com um toque tropical. Combina com verão!</p>
+      <div class="modo-preparo"><strong>Modo de Preparo:</strong> Dilua 25g em 1 litro de água gelada.</div>
+    </div>
+
+    <div class="produto uva">
+      <img src="uva.jpeg" alt="Suco de Uva"/>
+      <h3>Uva</h3>
+      <p>Intenso e marcante. Ideal para churrascos e encontros familiares.</p>
+      <div class="modo-preparo"><strong>Modo de Preparo:</strong> Misture 25g em 1 litro de água gelada.</div>
+    </div>
+
+    <div class="produto limão">
+      <img src="limão.jpeg" alt="Suco de Limão"/>
+      <h3>Limão</h3>
+      <p>Cítrico e refrescante, perfeito com gelo e hortelã.</p>
+      <div class="modo-preparo"><strong>Modo de Preparo:</strong> Misture 25g com 1 litro de água e gelo.</div>
+    </div>
+
+    <div class="produto manga">
+      <img src="manga.jpeg" alt="Suco de Manga" />
+      <h3>Manga</h3>
+      <p>Doçura tropical em cada gole. Ideal para refeições leves.</p>
+      <div class="modo-preparo"><strong>Modo de Preparo:</strong> Misture 25g em 1 litro de água gelada.</div>
+    </div>
+
+    <div class="produto framboesa">
+      <img src="framboesa.jpeg" alt="Suco de Framboesa"  />
+      <h3>Framboesa</h3>
+      <p>Sabor sofisticado e marcante. Uma explosão de sabor!</p>
+      <div class="modo-preparo"><strong>Modo de Preparo:</strong> Misture 25g em 1 litro de água bem gelada.</div>
+    </div>
+
+    <div class="produto maracuja">
+      <img src="maracuja.jpeg" alt="Suco de Maracujá" />
+      <h3>Maracujá</h3>
+      <p>Levemente ácido, perfeito para relaxar e refrescar.</p>
+      <div class="modo-preparo"><strong>Modo de Preparo:</strong> Misture 25g em 1 litro de água e gelo.</div>
+    </div>
+  </div>
+
+  <section id="sobre-nos">
+    <h2>Nossa História</h2>
+    <img src="equipe.jpg" alt="Equipa Power Frut" class="equipe-img">
+    <p class="descricao-historia">
+      A Power Frut nasceu da paixão por uma vida saudável e pelo sabor autêntico das frutas frescas.
+      Acreditamos que cada gole de suco pode ser uma explosão de energia e bem-estar. Nossa missão é levar
+      até você sucos deliciosos, nutritivos e feitos com ingredientes selecionados, porque saúde e sabor
+      andam juntos!
+    </p>
+    <div class="valores-container">
+      <div class="valor-item">
+        <img src="https://placehold.co/60x60/ffffff/ff6600?text=Q" alt="Qualidade">
+        <h4>Qualidade Superior</h4>
+        <p>Ingredientes frescos e selecionados com o máximo rigor.</p>
+      </div>
+      <div class="valor-item">
+        <img src="https://placehold.co/60x60/ffffff/ff6600?text=S" alt="Sabor">
+        <h4>Sabor Incomparável</h4>
+        <p>Receitas que realçam o melhor das frutas para uma experiência única.</p>
+      </div>
+      <div class="valor-item">
+        <img src="https://placehold.co/60x60/ffffff/ff6600?text=H" alt="Saúde">
+        <h4>Foco na Saúde</h4>
+        <p>Nutrição e bem-estar em cada copo, promovendo um estilo de vida ativo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO BLOG ADICIONADA ABAIXO -->
+  <section id="blog">
+
+    <h2>Nosso Blog Power Frut</h2>
+
+    <div class="blog-posts-container">
+
+        <article class="blog-post-item">
+
+            <img src="laranja.jpg" alt="[Imagem de Benefícios da Laranja]" >
+        
+
+            <h3>Os Incríveis Benefícios do Suco de Laranja</h3>
+            <p class="post-meta">Publicado em: 04 de Junho, 2025 | Categoria: Saúde</p>
+            <p class="post-excerpt">Descubra por que o suco de laranja Power Frut é mais do que uma bebida deliciosa – é um impulso para sua saúde diária, rico em vitamina C e antioxidantes...</p>
+            <a href="beneficios-suco-laranja.pdf" class="read-more-btn" target="_blank">Leia Mais</a>
+        </article>
+
+      <article class="blog-post-item">
+        <img src="morangoblog.jpg" alt="[Imagem de Smoothie de Morango Power Frut]">
+        <h3>Receita Especial: Smoothie Energizante com Suco de Morango Power Frut</h3>
+        <p class="post-meta">Publicado em: 02 de Junho, 2025 | Categoria: Receitas</p>
+        <p class="post-excerpt">Aprenda a fazer um smoothie vibrante e cheio de energia usando nosso suco de morango. Perfeito para o seu pré-treino ou um lanche da tarde revigorante...</p>
+        <a href="SMOOTHIE.pdf" class="read-more-btn" target="_blank">Leia Mais</a>
+      </article>
+
+      <article class="blog-post-item">
+        <img src="hidratação.jpg" alt="[Imagem de Dicas de Hidratação com Sucos]" >
+        <h3>Top 5 Dicas para Manter-se Hidratado e Saudável com Sucos Naturais</h3>
+        <p class="post-meta">Publicado em: 30 de Maio, 2025 | Categoria: Bem-Estar</p>
+        <p class="post-excerpt">A hidratação é fundamental para o bem-estar. Veja como os sucos Power Frut podem ser seus aliados para uma vida mais saudável e hidratada, especialmente nos dias quentes...</p>
+        <a href="hidratação.pdf" class="read-more-btn" target="_blank">Leia Mais</a>
+      </article>
+    </div>
+  </section>
+
+     
+    </div>
+  </section>
+  <!-- FIM DA SEÇÃO BLOG -->
+
+  <section id="jogo-da-memoria">
+    <h2>Jogo da Memória das Frutas</h2>
+    <div id="game-board"></div>
+  </section>
+
+<script>
+  // Script do Jogo da Memória (mantido como na versão anterior)
+  const frutasImagens = [ 
+    'laranja.jpeg', 'morango.jpeg', 'abacaxi.jpeg', 'uva.jpeg',
+    'limão.jpeg', 'manga.jpeg', 'framboesa.jpeg', 'maracuja.jpeg'
+  ];
+
+  let gameBoard = document.getElementById('game-board');
+  let primeiraCarta = null;
+  let segundaCarta = null;
+  let tabuleiroTravado = false; 
+  let paresEncontrados = 0;
+  let totalPares = frutasImagens.length; 
+
+  function criarCarta(nomeFruta) {
+    const carta = document.createElement('div');
+    carta.classList.add('card-game'); 
+    carta.dataset.fruta = nomeFruta;
+
+    const img = document.createElement('img');
+    img.src = nomeFruta;
+    img.alt = `Imagem de ${nomeFruta.split('.')[0]}`; 
+    img.onerror = function() {
+        this.src = `https://placehold.co/100x100/333/fff?text=${nomeFruta.split('.')[0].charAt(0).toUpperCase()}`;
+        this.alt = `Placeholder para ${nomeFruta.split('.')[0]}`;
+    };
+
+    carta.appendChild(img);
+
+    carta.addEventListener('click', () => {
+      if (tabuleiroTravado || carta === primeiraCarta || carta.classList.contains('matched')) return;
+      carta.classList.add('flipped'); 
+      if (!primeiraCarta) {
+        primeiraCarta = carta; 
+      } else {
+        segundaCarta = carta; 
+        tabuleiroTravado = true; 
+        verificarPar(); 
+      }
+    });
+    return carta;
+  }
+
+  function verificarPar() {
+    const ehPar = primeiraCarta.dataset.fruta === segundaCarta.dataset.fruta;
+    if (ehPar) {
+      desabilitarCartasComoPar(); 
+      paresEncontrados++;
+      if (paresEncontrados === totalPares) { 
+        setTimeout(mostrarMensagemDeVitoria, 500); 
+      } else {
+        resetarTurno(); 
+      }
+    } else {
+      setTimeout(desvirarCartas, 1000); 
+    }
+  }
+
+  function desabilitarCartasComoPar() {
+    primeiraCarta.classList.add('matched');
+    segundaCarta.classList.add('matched');
+    if (paresEncontrados < totalPares -1) { 
+        resetarTurno();
+    } else if (paresEncontrados === totalPares -1) { 
+        primeiraCarta = null;
+        segundaCarta = null;
+        tabuleiroTravado = false; 
+    }
+  }
+
+  function desvirarCartas() {
+    primeiraCarta.classList.remove('flipped');
+    segundaCarta.classList.remove('flipped');
+    resetarTurno();
+  }
+
+  function resetarTurno() {
+    [primeiraCarta, segundaCarta, tabuleiroTravado] = [null, null, false];
+  }
+
+  function montarTabuleiro() {
+    gameBoard.innerHTML = ''; 
+    paresEncontrados = 0;
+    resetarTurno(); 
+    let cartasEmbaralhadas = [...frutasImagens, ...frutasImagens]
+      .sort(() => 0.5 - Math.random());
+    cartasEmbaralhadas.forEach(nomeFruta => {
+      const cartaElemento = criarCarta(nomeFruta);
+      gameBoard.appendChild(cartaElemento); 
+    });
+  }
+
+  function mostrarMensagemDeVitoria() {
+    const mensagemContainer = document.createElement('div');
+    mensagemContainer.classList.add('victory-message'); 
+    const textoVitoria = document.createElement('h1');
+    textoVitoria.innerText = '🎉 Você Ganhou! Parabéns! 🎉';
+    const logoPowerFrut = document.createElement('img');
+    logoPowerFrut.src = 'logo.jpg'; 
+    logoPowerFrut.alt = 'Logo Power Frut';
+    logoPowerFrut.classList.add('logo-victory');
+    logoPowerFrut.onerror = function() {
+        this.src = 'https://placehold.co/150x150/ff6600/111?text=PF';
+        this.alt = 'Power Frut Logo Placeholder';
+    }
+    const botaoReiniciar = document.createElement('button');
+    botaoReiniciar.innerText = 'Jogar Novamente';
+    botaoReiniciar.addEventListener('click', () => {
+      document.body.removeChild(mensagemContainer); 
+      montarTabuleiro(); 
+    });
+    mensagemContainer.appendChild(textoVitoria);
+    mensagemContainer.appendChild(logoPowerFrut);
+    mensagemContainer.appendChild(botaoReiniciar);
+    document.body.appendChild(mensagemContainer); 
+  }
+
+  document.addEventListener('DOMContentLoaded', montarTabuleiro);
+
+  // Script para destacar link ativo no menu (opcional)
+  const navLinks = document.querySelectorAll('nav a');
+  const sections = document.querySelectorAll('section'); // Adicionar IDs às seções para funcionar
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.clientHeight;
+      if (pageYOffset >= (sectionTop - sectionHeight / 3)) { // Ajuste o offset conforme necessário
+        current = section.getAttribute('id');
+      }
+    });
+
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href').includes(current) && current) {
+        link.classList.add('active');
+      }
+    });
+    // Caso especial para o link "Início" quando no topo
+    if (pageYOffset < sections[0].offsetTop - sections[0].clientHeight / 3) {
+        navLinks.forEach(link => link.classList.remove('active'));
+        document.querySelector('nav a[href="#capa-link"]').classList.add('active');
+    }
+
+  });
+
+</script>
+
+  <footer id="contato">
+    <h2>Fale com a gente!</h2>
+    <p>Quer fazer um pedido, tirar dúvidas ou receber nossas promoções diretamente no seu celular?</p>
+    <p>É fácil! Basta escanear o QR Code abaixo com a câmera do seu celular e fale com a gente pelo WhatsApp ou redes sociais:</p>
+    <img src="qr.jpeg" alt="QR Code de contato" class="qr-code" />
+    <p class="copyright">&copy; 2025 Power Frut. Todos os direitos reservados.</p>
+  </footer>
+</body>
+</html>
